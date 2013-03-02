@@ -44,7 +44,7 @@ exports.findAll = function(req, res){
 
 exports.findById = function(req, res){
 	var id = req.params.id;
-	
+
 	db.collection('wines', function(err, collection){
 		collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item){
 			res.send(item);
@@ -57,6 +57,12 @@ exports.addWine = function(req, res){
 	console.log('adding', wine);
 
 	db.collection('wines', function(err, collection){
+
+		if(err){
+			console.log('error:', err);
+			return;
+		};
+
 		collection.insert(wine, {safe: true}, function(err, result){
 			if(err){
 				res.send({'error': 'unable to insert'});

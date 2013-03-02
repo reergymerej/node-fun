@@ -5,6 +5,10 @@ var express = require('express'),
 //
 var app = express();
 
+app.configure(function(){
+	app.use(express.bodyParser());
+});
+
 
 app.get('/wines', wines.findAll);
 app.get('/wines/:id', wines.findById);
